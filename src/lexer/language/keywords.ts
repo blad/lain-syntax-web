@@ -1,14 +1,17 @@
 import { Result, fail, success } from "../../common/result";
 import { Stream } from "../../common/stream";
 import { isWhitespace, toChar } from "../../common/char";
+import { Token } from "../token";
 
-export class LainKeywordToken {
-  target: string;
+export class LainKeywordToken implements Token {
+  tag: string;
+  value: string;
   minSize: number;
   targetChars: number[];
 
   constructor(expected: string) {
-    this.target = expected;
+    this.value = expected;
+    this.tag = expected;
     this.minSize = expected.length;
     this.targetChars = expected.split('').map(toChar);
   }
@@ -24,12 +27,12 @@ export class LainKeywordToken {
       } else {
         buffer.push(next);
         stream.pushBackAll(buffer);
-        return fail('Not a match for ' + this.target);
+        return fail('Not a match for ' + this.value);
       }
       if (buffer.length == this.minSize && stream.hasNext() && !isWhitespace(stream.peek())) {
         // We matched the keyword, but not the end of the word in the stream.
         stream.pushBackAll(buffer);
-        return fail('Not a match for ' + this.target);
+        return fail('Not a match for ' + this.value);
       }
     }
     return success(this);

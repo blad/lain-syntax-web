@@ -1,4 +1,3 @@
-import {StreamFromString} from '../common/stream';
 import { tokenize } from '.';
 import { success } from '../common/result';
 import { LainSymbolToken } from './language/symbols';

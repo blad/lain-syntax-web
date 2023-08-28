@@ -1,14 +1,17 @@
 import { Result, fail, success } from "../../common/result";
 import { Stream } from "../../common/stream";
 import { isWhitespace, toChar } from "../../common/char";
+import type { Token } from "../token";
 
-export class LainSymbolToken {
-  target: string;
+export class LainSymbolToken implements Token {
+  tag: string;
+  value: string;
   minSize: number;
   targetChars: number[];
 
   constructor(expected: string) {
-    this.target = expected;
+    this.tag = expected;
+    this.value = expected;
     this.minSize = expected.length;
     this.targetChars = expected.split('').map(toChar);
   }
@@ -18,7 +21,7 @@ export class LainSymbolToken {
     for (let i = 0; i < this.minSize; i++) {
       if (!stream.hasNext()) {
           stream.pushBackAll(buffer);
-          return fail('Not a match for ' + this.target);
+          return fail('Not a match for ' + this.value);
       }
 
       const next = stream.next();
@@ -26,7 +29,7 @@ export class LainSymbolToken {
 
       if (next !== this.targetChars[i]) {
           stream.pushBackAll(buffer);
-          return fail('Not a match for ' + this.target);
+          return fail('Not a match for ' + this.value);
       }
     }
     

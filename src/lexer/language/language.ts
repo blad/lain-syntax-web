@@ -3,13 +3,15 @@ import { Stream } from "../../common/stream";
 import { isAlpha, isChar, isDigit, isNewline, isWhitespace, isKnownSymbol } from "../../common/char";
 import { Keywords } from "./keywords";
 import { Symbols } from "./symbols";
+import { Token } from "../token";
 
 type Reason = string;
 
-export class LainInvalidToken {
-    static tag: "InvalidToken";
+export class LainInvalidToken implements Token {
+    tag: string = "InvalidToken";
     value: string;
-    reason: string
+    reason: string;
+    
     constructor(value: string, reason: string) {
         this.value = value;
         this.reason = reason;
@@ -34,8 +36,8 @@ export class LainInvalidToken {
     }
 }
 
-export class LainWhiteSpaceToken {
-    static tag: "Whitespace";
+export class LainWhiteSpaceToken implements Token {
+    tag: string =  "Whitespace";
     value: string;
     isEmpty: boolean;
 
@@ -69,8 +71,8 @@ export class LainWhiteSpaceToken {
  * 
  * A variable, function name, or other non-keyword reference.
  */
-export class LainNameToken {
-    static tag: "Name";
+export class LainNameToken implements Token {
+    tag: string = "Name";
     value: string;
 
     constructor(initialValue: string) {
@@ -115,8 +117,8 @@ export class LainNameToken {
  * 
  * A comment within Lain
  */
-export class LainCommentToken  {
-    static tag: "Comment";
+export class LainCommentToken implements Token {
+    tag: string = "Comment";
     value: string;
     
     constructor(initialValue: string) {

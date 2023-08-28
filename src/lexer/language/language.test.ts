@@ -12,7 +12,7 @@ test('Test Successfully Parsing of string', () => {
     ].forEach(example => {
         const stream = new StreamFromString(example.input)
         const result = LainCommentToken.tokenize(stream)
-        const expected = success(new LainStringToken(example.expected))
+        const expected = success(new LainCommentToken(example.expected))
         expect(result).toEqual(expected);
     });
 });

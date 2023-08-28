@@ -7,7 +7,7 @@ test('Test Successfully Parsing from exact match', () => {
         .keys(Keywords)
         .map((key) => Keywords[key])
         .forEach(next => {
-            const stream = new StreamFromString(next.target)
+            const stream = new StreamFromString(next.value)
             const result = next.tokenize(stream)
             const expected = success(next)
             expect(result).toEqual(expected);
@@ -19,9 +19,9 @@ test('Test Failed Parsing: keyword with a partial match at start of string', () 
         .keys(Keywords)
         .map((key) => Keywords[key])
         .forEach(next => {
-            const stream = new StreamFromString(next.target + 'suffix')
+            const stream = new StreamFromString(next.value + 'suffix')
             const result = next.tokenize(stream)
-            const expected = fail('Not a match for ' + next.target)
+            const expected = fail('Not a match for ' + next.value)
             expect(result).toEqual(expected);
         });
 });
@@ -31,9 +31,9 @@ test('Test Failed Parsing: keyword with a partial match within a string', () => 
         .keys(Keywords)
         .map((key) => Keywords[key])
         .forEach(next => {
-            const stream = new StreamFromString('prefix' + next.target + 'suffix')
+            const stream = new StreamFromString('prefix' + next.value + 'suffix')
             const result = next.tokenize(stream)
-            const expected = fail('Not a match for ' + next.target)
+            const expected = fail('Not a match for ' + next.value)
             expect(result).toEqual(expected);
         });
 });
