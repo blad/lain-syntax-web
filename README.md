@@ -75,3 +75,49 @@ code-analysis tools.
 ```
 
 
+### Example CSS for Generated HTML
+
+```
+.token-comment {
+  color: #bbb;
+}
+
+.token-parenthesis {
+  color: #999;
+}
+
+.token-name {
+  color: #0A0;
+}
+
+.token-access {
+  color: #aa0;  
+}
+
+.token-number {
+  color: #0AA;
+}
+
+.token-string {
+  color: #AA0;
+}
+
+.token-invalidtoken {
+  color: #F00;
+  display: inline-block;
+  position: relative;
+}
+
+.token-invalidtoken:before {
+  content: "~~~~~~~~~~~~";
+  font-size: 0.6em;
+  font-weight: 700;
+  font-family: Times New Roman, Serif;
+  color: #F00;
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  left: -1px;
+  overflow: hidden;
+}
+```

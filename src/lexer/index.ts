@@ -16,13 +16,13 @@ function tap(f) {
 export function tokenize(input: string): Result<string, any[]> {
     const stream = new StreamFromString(input);
     const precedence = [
+        (s: Stream) => LainCommentToken.tokenize(s),
         (s: Stream) => LainWhiteSpaceToken.tokenize(s),
+        (s: Stream) => LainNumberToken.tokenize(s),
         ...Object.values(Symbols).map((tokenizer) => (s: Stream) => tokenizer.tokenize(s)),
         ...Object.values(Keywords).map((tokenizer) => (s: Stream) => tokenizer.tokenize(s)),
-        (s: Stream) => LainCommentToken.tokenize(s),
         (s: Stream) => LainNameToken.tokenize(s),
         (s: Stream) => LainStringToken.tokenize(s),
-        (s: Stream) => LainNumberToken.tokenize(s),
         (s: Stream) => LainInvalidToken.tokenize(s),
     ] 
 

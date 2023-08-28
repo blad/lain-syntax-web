@@ -3,13 +3,15 @@ import { Stream } from "../../common/stream";
 import { SymbolPairs, isChar, isDigit, isQuote, toChar } from "../../common/char";
 import { Keywords } from "./keywords";
 import { Symbols } from "./symbols";
+import { Token } from "../token";
 
 /**
  * LainNumberToken
  * 
  * A number value.
  */
-export class LainNumberToken {
+export class LainNumberToken implements Token {
+    tag: string = 'Number';
     value: string;
     
     constructor(parsedValue: string) {
@@ -73,7 +75,8 @@ export class LainNumberToken {
  * 
  * A quoted string.
  */
-export class LainStringToken {
+export class LainStringToken implements Token {
+    tag: string = 'String';
     value: string;
     
     constructor(parsedValue: string) {
